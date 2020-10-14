@@ -15,10 +15,9 @@ services:
     working_dir: /work
 
   db:
-    image: mysql:8.0
+    build: ./infra/mysql
     volumes:
       - db-store:/var/lib/mysql
-      - ./infra/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
     environment:
       - MYSQL_DATABASE=laravel_local
       - MYSQL_USER=phper

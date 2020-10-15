@@ -14,4 +14,5 @@ RUN apt-get update && \
 
 COPY ./php.ini /usr/local/etc/php/php.ini
 
+
 WORKDIR /work

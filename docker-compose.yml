@@ -13,6 +13,8 @@ services:
       - ./backend:/work
       - ./infra/nginx/default.conf:/etc/nginx/conf.d/default.conf
     working_dir: /work
+    depends_on:
+      - app
 
   db:
     build: ./infra/mysql
@@ -24,6 +26,20 @@ services:
       - MYSQL_PASSWORD=secret
       - MYSQL_ROOT_PASSWORD=secret
       - TZ=Asia/Tokyo
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=db
+      - PMA_USER=root
+      - PMA_PASSWORD=secret
+    links:
+      - db
+    ports:
+      - 8080:80
+    volumes:
+      - /sessions
 
 volumes:
   db-store:
